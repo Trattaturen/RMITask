@@ -27,19 +27,28 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker
 
 	while (manager == null)
 	{
+	    System.out.println("manager not found");
 	    try
 	    {
-		manager = (Manager) Naming.lookup("rmi://localhost:1099/Manager");
-	    } catch (MalformedURLException e)
-	    {
+		manager = (Manager) Naming.lookup("rmi://192.168.1.54:1099/Manager");
+		// Registry registry =
+		// LocateRegistry.getRegistry("rmi://192.168.1.54", 1099);
+		// manager = (Manager) registry.lookup("Manager");
+
 		// logger.info("Not found manager");
 
 	    } catch (RemoteException e)
 	    {
+		e.printStackTrace();
 		// logger.info("Not found manager");
 	    } catch (NotBoundException e)
 	    {
+		e.printStackTrace();
 		// logger.info("Not found manager");
+	    } catch (MalformedURLException e)
+	    {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	    }
 	}
 	manager.wakeUp(this);
@@ -62,7 +71,7 @@ public class WorkerImpl extends UnicastRemoteObject implements Worker
 		    manager.wakeUp(thisWorker);
 		} catch (RemoteException e)
 		{
-		    
+
 		    e.printStackTrace();
 		}
 

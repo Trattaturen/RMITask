@@ -13,12 +13,14 @@ public class WorkerServer
 	{
 	    LocateRegistry.createRegistry(1098);
 	    Worker stub = new WorkerImpl();
-	    Naming.rebind("rmi://localhost:1098/Worker", stub);
+	    Naming.rebind("rmi://192.168.1.54:1098/Worker", stub);
 	} catch (RemoteException e)
 	{
+	    System.out.println("remote exc");
 	    e.printStackTrace();
 	} catch (MalformedURLException ex)
 	{
+	    System.out.println("malf exc");
 	    ex.printStackTrace();
 	}
 
